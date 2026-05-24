@@ -3,19 +3,22 @@
    ================================================================ */
 
 :root {
-    /* Palette — institutional, sophisticated */
-    --ink:        #0a0e1a;       /* near-black navy */
-    --ink-2:      #0f1424;       /* card surface */
-    --ink-3:      #161c2e;       /* elevated surface */
+    /* Palette — sampled from MetaEquity Partners logo (royal + light blue) */
+    --ink:        #050d24;       /* near-black brand navy */
+    --ink-2:      #0a1530;       /* card surface */
+    --ink-3:      #122046;       /* elevated surface */
     --line:       rgba(255,255,255,0.08);
-    --line-2:     rgba(255,255,255,0.14);
-    --ivory:      #f4f1ea;
-    --ivory-dim:  rgba(244,241,234,0.72);
-    --ivory-mute: rgba(244,241,234,0.48);
-    --gold:       #c8a96a;        /* primary accent */
-    --gold-soft:  #e6d3a8;
-    --emerald:    #4f8a6d;        /* secondary accent */
-    --blue:       #5b7cfa;
+    --line-2:     rgba(255,255,255,0.16);
+    --ivory:      #ffffff;
+    --ivory-dim:  rgba(255,255,255,0.74);
+    --ivory-mute: rgba(255,255,255,0.50);
+    --gold:       #5b8cff;        /* primary accent — light brand blue */
+    --gold-soft:  #a8c4ff;        /* hover / soft accent */
+    --emerald:    #2b3fcc;        /* secondary — deep brand royal */
+    --blue:       #1e2cb8;        /* core brand royal */
+    --brand:      #1e2cb8;        /* explicit brand color (logo blue) */
+    --brand-2:    #4761ff;        /* gradient mid */
+    --brand-light:#a8c4ff;        /* gradient end / dot-pattern light */
 
     /* Type */
     --font-display: "Instrument Serif", "Cormorant Garamond", Georgia, serif;
@@ -99,7 +102,7 @@ h2 { font-size: clamp(2rem, 4.4vw, 3.6rem); }
 h3 { font-size: clamp(1.4rem, 2.4vw, 2rem); }
 
 .display-grad {
-    background: linear-gradient(115deg, var(--ivory) 0%, var(--gold-soft) 55%, var(--gold) 100%);
+    background: linear-gradient(115deg, var(--ivory) 0%, var(--brand-light) 55%, var(--brand-2) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -107,7 +110,7 @@ h3 { font-size: clamp(1.4rem, 2.4vw, 2rem); }
 
 .italic-accent {
     font-style: italic;
-    color: var(--gold-soft);
+    color: var(--brand-light);
 }
 
 p { color: var(--ivory-dim); font-size: 1.02rem; }
@@ -150,15 +153,19 @@ p { color: var(--ivory-dim); font-size: 1.02rem; }
     letter-spacing: -0.01em;
 }
 .brand-mark {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, var(--gold) 0%, #8a6f3d 100%);
-    display: grid; place-items: center;
-    font-family: var(--font-display);
-    font-weight: 600;
-    color: var(--ink);
-    font-size: 18px;
-    box-shadow: 0 4px 20px rgba(200,169,106,0.25);
+    width: 38px; height: 38px;
+    border-radius: 9px;
+    background: #ffffff;
+    padding: 4px;
+    object-fit: contain;
+    box-shadow: 0 4px 18px rgba(30,44,184,0.30), 0 0 0 1px rgba(168,196,255,0.18);
+    display: block;
+    flex-shrink: 0;
+}
+.brand-mark--lg {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    padding: 6px;
 }
 
 .nav-links {
@@ -247,9 +254,10 @@ p { color: var(--ivory-dim); font-size: 1.02rem; }
     color: var(--ink);
 }
 .btn-primary:hover {
-    background: var(--gold-soft);
+    background: var(--brand-light);
+    color: var(--ink);
     transform: translateY(-1px);
-    box-shadow: 0 12px 28px rgba(244,241,234,0.18);
+    box-shadow: 0 12px 28px rgba(71,97,255,0.25);
 }
 
 .btn-ghost {
@@ -282,9 +290,9 @@ p { color: var(--ivory-dim); font-size: 1.02rem; }
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(ellipse 50% 40% at 20% 30%, rgba(200,169,106,0.18), transparent 60%),
-        radial-gradient(ellipse 40% 50% at 80% 20%, rgba(91,124,250,0.12), transparent 60%),
-        radial-gradient(ellipse 60% 40% at 50% 90%, rgba(79,138,109,0.15), transparent 60%);
+        radial-gradient(ellipse 50% 40% at 20% 30%, rgba(71,97,255,0.22), transparent 60%),
+        radial-gradient(ellipse 40% 50% at 80% 20%, rgba(168,196,255,0.16), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 50% 90%, rgba(30,44,184,0.30), transparent 60%);
     filter: blur(40px);
     animation: meshDrift 22s ease-in-out infinite alternate;
 }
@@ -495,6 +503,7 @@ section {
 }
 .team-card:hover { background: var(--ink-2); }
 
+/* Small avatar — used on home preview */
 .team-avatar {
     width: 64px; height: 64px;
     border-radius: 50%;
@@ -503,9 +512,57 @@ section {
     display: grid; place-items: center;
     font-family: var(--font-display);
     font-size: 1.4rem;
-    color: var(--gold-soft);
+    color: var(--brand-light);
     margin-bottom: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
 }
+.team-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
+
+/* Full portrait — used on team page */
+.team-card.with-portrait { padding: 0; display: flex; flex-direction: column; }
+.team-portrait {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(135deg, var(--ink-3), var(--ink-2));
+    overflow: hidden;
+    position: relative;
+}
+.team-portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    transition: transform 0.8s var(--ease), filter 0.6s var(--ease);
+    filter: saturate(0.95) contrast(1.02);
+}
+.team-card.with-portrait:hover .team-portrait img {
+    transform: scale(1.03);
+    filter: saturate(1.05) contrast(1.05);
+}
+.team-portrait::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(5,13,36,0.55) 100%);
+    pointer-events: none;
+}
+.team-portrait--placeholder {
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    color: var(--brand-light);
+    background: linear-gradient(135deg, var(--ink-3), var(--ink-2));
+}
+.team-card.with-portrait .team-body {
+    padding: 28px 28px 32px;
+}
+
 .team-card h3 {
     font-size: 1.25rem;
     margin-bottom: 6px;
@@ -515,7 +572,7 @@ section {
     font-size: 10px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--brand-light);
 }
 .team-card p {
     margin-top: 14px;
